@@ -1,0 +1,22 @@
+<launch>
+  <!-- Argument: whether to use GUI for bag playback or not -->
+  <arg name="use_bag_gui" default="false" />
+
+  <!-- Argument: name of the bag file in the bags directory -->
+  <arg name="bag_file_name" default="glennan_5_complete-002.bag" />
+
+  <!-- Argument: full path to the bag file -->
+  <arg name="full_bag_path" default="$(find navvis_playback)/bags/$(arg bag_file_name)" />
+
+  <!-- If use_bag_gui is true, use GUI tool for playing back the bag file -->
+  <group if="$(arg use_bag_gui)">
+    <node pkg="rqt_bag" type="rqt_bag" name="rqt_bag" args="$(arg full_bag_path)" />
+  </group>
+
+  <!-- If use_bag_gui is false, use command line for playing back the bag file -->
+  <group unless="$(arg use_bag_gui)">
+    <node pkg="rosbag" type="play" name="rosbag_play" args="$(arg full_bag_path)" />
+  </group>
+
+</launch>
+

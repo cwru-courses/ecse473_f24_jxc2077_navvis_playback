@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="navvis_robot">
+    
+    <!-- Include external XACRO file -->
+    <xacro:include filename="$(find navvis_description)/urdf/robot.xacro" />
+
+    <!-- Base link -->
+    <link name="base_link" />
+
+    <!-- Joint connecting base_link to base -->
+    <joint name="base_link_to_base_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="base" />
+        <origin xyz="0.07 0 1.792" rpy="0.0 ${pi} 0.0" />
+    </joint>
+
+    <!-- Joint connecting base_link to IMU -->
+    <joint name="base_link_to_imu_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="imu" />
+        <origin xyz="0.0 0.0 0.0" rpy="3.1405788 0.0034281 3.1382064" />
+    </joint>
+
+    <!-- IMU link with visual and collision properties -->
+    <link name="imu">
+        <visual>
+            <geometry>
+                <sphere radius="0.1" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.1" />
+            </geometry>
+        </collision>
+    </link>
+
+</robot>

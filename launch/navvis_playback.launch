@@ -1,0 +1,26 @@
+<launch>
+  <!-- Argument: choose between GUI, command line, or none for bag playback -->
+  <arg name="use_bag" default="gui" />
+  <arg name="bag_file_name" default="glennan_5_complete-002.bag" />
+  <arg name="full_bag_path" default="$(find navvis_palyback)/bags/$(arg bag_file_name)" />
+
+  <!-- Argument: whether to use XACRO file or not -->
+  <arg name="use_xacro" default="true" />
+  <arg name="rviz_conf" default="$(find navvis_description)/config/config.rviz" />
+  <arg name="file" default="$(find navvis_description)/urdf/navvis_bag_playback.xacro" />
+
+  <!-- Include the bag.launch file and pass appropriate arguments -->
+  <include file="$(find your_package_name)/launch/bag.launch">
+    <arg name="use_bag" value="$(arg use_bag)" />
+    <arg name="bag_file_name" value="$(arg bag_file_name)" />
+    <arg name="full_bag_path" value="$(arg full_bag_path)" />
+  </include>
+
+  <!-- Include the display.launch file from navvis_description and pass arguments -->
+  <include file="$(find navvis_description)/launch/display.launch">
+    <arg name="use_xacro" value="$(arg use_xacro)" />
+    <arg name="rviz_conf" value="$(arg rviz_conf)" />
+    <arg name="file" value="$(arg file)" />
+  </include>
+</launch>
+
